@@ -18,6 +18,9 @@ resource "google_iam_workload_identity_pool_provider" "provider" {
     issuer_uri =  "https://token.actions.githubusercontent.com"
   }
 }
+output "github_actions_workload_identity_pool_provider_name" {
+  value = google_iam_workload_identity_pool_provider.provider.name
+}
 
 resource "google_service_account" "service_account_gha" {
   account_id   = "github-actions"
@@ -36,4 +39,7 @@ resource "google_service_account_iam_member" "binding" {
   service_account_id = google_service_account.service_account_gha.id
   role               = "roles/iam.workloadIdentityUser"
   member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.pool.name}/${local.github_repo}"
+}
+output "github_actions_workload_identity_pool_service_account_email" {
+  value = google_service_account.service_account_gha.email
 }
