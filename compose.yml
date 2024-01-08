@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    ports:
+      - target: 25432
+        published: 5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "pleroma"]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ChangeMe!
+      POSTGRES_DB: akkoma
+
+  web:
+    restart: always
+    tty: true
+    stdin_open: true
+    ports:
+      - target: 4000
+        published: 4000
+      - target: 8080
+        published: 80
+    build:
+      target: local
+      dockerfile: ./Dockerfile
+      args:
+        ELIXIR_VER: "1.15"
+    volumes:
+      - ./data/uploads:/var/lib/pleroma/uploads
+      - ./data/static:/var/lib/pleroma/static
+    depends_on:
+      - db
