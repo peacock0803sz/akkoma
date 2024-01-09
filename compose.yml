@@ -19,7 +19,7 @@ x-web-base: &x-web-base
 services:
   db:
     profiles: ["dev"]
-    image: postgres:15
+    image: postgres:13
     restart: always
     ports:
       - target: 5432
