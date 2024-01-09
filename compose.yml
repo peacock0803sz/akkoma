@@ -1,35 +1,53 @@
 version: "3.8"
 
+x-web-base: &x-web-base
+  restart: always
+  tty: true
+  stdin_open: true
+  build:
+    dockerfile: ./Dockerfile
+    context: .
+  ports:
+    - target: 4000
+      published: 4000
+    - target: 8080
+      published: 8080
+  volumes:
+    - uploads:/var/lib/pleroma/uploads
+    - static:/var/lib/pleroma/static
+
 services:
   db:
+    profiles: ["dev"]
     image: postgres:15
     restart: always
     ports:
-      - target: 25432
+      - target: 5432
         published: 5432
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "pleroma"]
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: pleroma
       POSTGRES_PASSWORD: ChangeMe!
-      POSTGRES_DB: akkoma
+      POSTGRES_DB: pleroma
 
-  web:
-    restart: always
-    tty: true
-    stdin_open: true
-    ports:
-      - target: 4000
-        published: 4000
-      - target: 8080
-        published: 80
+  web-dev:
+    profiles: ["dev"]
+    <<: *x-web-base
     build:
-      target: local
-      dockerfile: ./Dockerfile
+      args: 
+        APT_PKGS: "sudo man vim dnsutils net-tools"
+        MIX_ENV: dev
+    env_file: .env.dev
+
+  web-prod:
+    profiles: ["prod"]
+    <<: *x-web-base
+    build:
       args:
-        ELIXIR_VER: "1.15"
-    volumes:
-      - ./data/uploads:/var/lib/pleroma/uploads
-      - ./data/static:/var/lib/pleroma/static
-    depends_on:
-      - db
+        MIX_ENV: prod
+    env_file: .env.prod
+
+volumes:
+  uploads:
+  static:
