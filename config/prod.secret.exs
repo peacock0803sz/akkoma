@@ -5,7 +5,7 @@ config :pleroma, Pleroma.Web.Endpoint,
   http: [ip: {0, 0, 0, 0}, port: 8080]
 
 config :pleroma, :instance,
-  name:  "Peacock's Nesting Box",
+  name: "Peacock's Nesting Box",
   email: "peacock0803sz@gmail.com",
   notify_email: "peacock0803sz@gmail.com",
   limit: 5000,

@@ -27,11 +27,11 @@ config :pleroma, :instance,
 
 config :pleroma, Pleroma.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
+  username: "pleroma",
   password: "ChangeMe!",
-  database: "akkoma",
+  database: "pleroma",
   hostname: "db",
-  port: 25432,
+  port: 5432,
   pool_size: 10,
   timeout: 60_000
 
