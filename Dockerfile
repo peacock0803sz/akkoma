@@ -28,10 +28,11 @@ ENV ETC=/etc/akkoma
 COPY ./entrypoint.sh ${WORK}
 
 COPY ./app ${WORK}
-COPY ./config/ ${WORK}/config/
 RUN mix local.hex --force && mix local.rebar --force \
   && mix deps.get --only ${MIX_ENV} \
   && mix deps.compile --force && mix compile \
   && mkdir -p ${ETC} ${DATA}/uploads ${DATA}/static
+
+COPY ./config/ ${WORK}/config/
 
 ENTRYPOINT ["/akkoma/entrypoint.sh"]
