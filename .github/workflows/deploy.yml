@@ -43,7 +43,7 @@ jobs:
         with:
           context: .
           push: true
-          buld-args: MIX_ENV=prod
+          build-args: MIX_ENV=prod
           tags: "${{ env.REGISTRY_BASE }}/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}"
           cache-from: type=gha
           cache-to: type=gha,mode=max
