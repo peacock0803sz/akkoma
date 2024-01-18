@@ -8,6 +8,7 @@ while ! pg_isready -U ${DB_USER} -d postgres://${DB_HOST}:${DB_PORT}/${DB_NAME} 
 done
 
 echo "-- Running migrations..."
+mix local.hex --force && mix local.rebar --force
 mix ecto.migrate
 
 echo "--- Installing pleroma-fe and admin-fe frontends---"
