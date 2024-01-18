@@ -13,6 +13,6 @@ output "S3_SECRET_KEY" {
   value     = vultr_object_storage.storage.s3_secret_key
   sensitive = true
 }
-output "S3_BUCKET" {
+output "S3_REGION" {
   value = vultr_object_storage.storage.s3_hostname
 }

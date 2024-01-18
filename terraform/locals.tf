@@ -5,23 +5,10 @@ locals {
   service_name = "pleroma"
   github_repo  = "*"
   domain       = "social.p3ac0ck.net"
-  admin_email  = "peacock0803sz@gmail.com"
   enviroment_variables = [
     {
-      key   = "DOMAIN"
-      value = local.domain
-    },
-    {
-      key   = "ADMIN_NAME"
-      value = "Peacock"
-    },
-    {
-      key   = "ADMIN_EMAIL"
-      value = local.admin_email
-    },
-    {
-      key   = "NOTIFY_EMAIL"
-      value = local.admin_email
+      key   = "DB_NAME"
+      value = "pleroma"
     },
     {
       key   = "DB_PORT"
@@ -29,6 +16,10 @@ locals {
     },
     {
       key   = "DB_USER"
+      value = "pleroma"
+    },
+    {
+      key   = "S3_REGION"
       value = "pleroma"
     },
   ]
