@@ -57,5 +57,3 @@ jobs:
           service: pleroma
           region: ${{ env.REGION }}
           image: "${{ env.REGISTRY_BASE }}/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}"
-          tag: ${{ github.sha }}
-          tag_traffic: "${{ github.sha }}=100"
