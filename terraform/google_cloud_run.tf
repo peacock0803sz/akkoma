@@ -27,6 +27,11 @@ resource "google_cloud_run_v2_service" "service" {
   template {
     containers {
       image = "us-docker.pkg.dev/cloudrun/container/hello"
+      resources {
+        limits = {
+          memory = "1024Mi"
+        }
+      }
       dynamic "env" {
         for_each = local.enviroment_variables
         content {
