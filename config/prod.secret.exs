@@ -31,14 +31,20 @@ config :ex_aws, :s3,
   secret_access_key: System.fetch_env!("S3_ACCESS_KEY"),
   access_key_id: System.fetch_env!("S3_SECRET_KEY"),
   awscli_auth_adapter: ExAws.STS.AuthCache.AssumeRoleWebIdentityAdapter,
-  region: System.fetch_env!("S3_REGION"),
+  region: "us-east-1",
   scheme: "https://"
 
 config :pleroma, :instance, static_dir: "/var/lib/pleroma/static"
 
 config :pleroma, Pleroma.Upload,
   uploader: Pleroma.Uploaders.S3,
-  base_url: "https://media.social.p3ac0ck.net"
+  base_url: "https://pleroma-media.sgp1.vultrobjects.com"
+
+config :pleroma, Pleroma.Uploaders.S3,
+  bucket: "pleroma-media",
+  bucket_namespace: "",
+  truncated_namespace: "",
+  streaming_enabled: true
 
 config :pleroma, :shout, enabled: false
 
